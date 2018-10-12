@@ -12,8 +12,18 @@
         <div id="app">
             <div class="bg-blue-light text-white mb-4 shadow">
                 <div class="container mx-auto flex justify-between items-center p-4">
-                    <p>Notes: {{ auth()->user()->name }}</p>
-                    <p class="italic text-sm">BrandBoom Code Challenge</p>
+                    <span>Notes: {{ auth()->user()->name }}</span>
+                    <div class="flex items-center">
+                        <span class="italic text-sm mr-4">BrandBoom Code Challenge</span>
+                        <a href="{{ route('logout') }}"
+                           class="no-underline text-white"
+                           onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                            {{ __('Logout') }}
+                        </a>
+                        <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                            @csrf
+                        </form>
+                    </div>
                 </div>
             </div>
             <div class="container mx-auto w-full p-4" >
