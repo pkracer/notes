@@ -13,7 +13,7 @@
                               @keyup="resizeTextArea('body')"
                               @focus="focused = true"
                               class="w-full outline-none bg-transparent px-3 py-2 resize-none"
-                              placeholder="Take a note"
+                              placeholder="Note"
                               rows="1"
                     ></textarea>
 

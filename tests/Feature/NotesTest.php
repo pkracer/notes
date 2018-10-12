@@ -221,6 +221,48 @@ class NotesTest extends TestCase
     }
 
     /** @test */
+    function authenticated_users_edit_a_note_to_have_a_blank_title()
+    {
+        $note = factory(Note::class)->create();
+
+        $this->actingAs($note->user, 'api')
+            ->json('PATCH', "/api/notes/{$note->id}", [
+                'title' => '',
+                'body' => 'Note body',
+                'color' => 'green'
+            ])
+            ->assertStatus(200);
+
+        $this->assertDatabaseHas('notes', [
+            'id' => $note->id,
+            'title' => '',
+            'body' => 'Note body',
+            'color' => 'green'
+        ]);
+    }
+
+    /** @test */
+    function authenticated_users_edit_a_note_to_have_a_blank_body()
+    {
+        $note = factory(Note::class)->create();
+
+        $this->actingAs($note->user, 'api')
+            ->json('PATCH', "/api/notes/{$note->id}", [
+                'title' => 'Title',
+                'body' => '',
+                'color' => 'green'
+            ])
+            ->assertStatus(200);
+
+        $this->assertDatabaseHas('notes', [
+            'id' => $note->id,
+            'title' => 'Title',
+            'body' => '',
+            'color' => 'green'
+        ]);
+    }
+
+    /** @test */
     function unauthenticated_users_cannot_delete_notes()
     {
         $note = factory(Note::class)->create();

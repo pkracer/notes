@@ -11,7 +11,7 @@ class NotesController extends Controller
         request()->validate([
             'title' => ['present'],
             'body' => ['present'],
-            'color' => ['in:white,grey,red,orange,yellow,green,teal,blue,indigo,purple,pink']
+            'color' => ['in:white,red,orange,yellow,green,teal,blue,indigo,purple,pink']
         ]);
 
         $note = Note::make([
@@ -33,10 +33,14 @@ class NotesController extends Controller
         request()->validate([
             'title' => ['present'],
             'body' => ['present'],
-            'color' => ['in:white,grey,red,orange,yellow,green,teal,blue,indigo,purple,pink']
+            'color' => ['in:white,red,orange,yellow,green,teal,blue,indigo,purple,pink']
         ]);
 
-        $note->fill(request()->only(['title', 'body', 'color']));
+        $note->fill([
+            'title' => request('title') ?? '',
+            'body' => request('body') ?? '',
+            'color' => request('color') ?? 'white'
+        ]);
 
         if ($note->isDirty()) {
             $note->save();

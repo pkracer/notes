@@ -5,7 +5,8 @@
                 <i class="fas fa-sync fa-spin text-sm"></i>
             </div>
             <p v-show="hasTitle" v-text="note.title" class="break-word font-bold mb-4"></p>
-            <p v-text="note.body" class="break-word"></p>
+            <p v-show="hasBody" v-text="note.body" class="break-word"></p>
+            <p v-show="isEmpty" class="break-word text-grey-dark text-lg">Empty Note</p>
         </div>
 
         <edit-note-modal
@@ -50,6 +51,14 @@ export default {
 
     hasTitle() {
       return this.note.title !== '';
+    },
+
+    hasBody() {
+      return this.note.body !== '';
+    },
+
+    isEmpty() {
+      return !this.hasTitle && !this.hasBody;
     },
   },
 
